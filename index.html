@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11 - CSS Transform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="bg">
+        <div class="container">
+            <div class="cube">
+                <div class="face z-neg">
+                    Side one
+                </div>
+                <div class="face z-pos">
+                    Side two
+                    <div class="containerScreen"> 
+                        <div class="absolute logoGameBoy">
+                            <img class="logo" src="./assets/images/Gameboy_logo_blue.svg" alt="">
+                        </div>
+                        <div class="gridContainer">
+                            <div class="absolute dificultyContainer">
+                                <div class="difHard">
+                                    <h3 class="difficulty">HARD</h3>
+                                </div>
+                                <div class="difMedi">
+                                    <h3 class="difficulty">MEDI</h3>
+                                </div>
+                                <div class="difEasy">
+                                    <h3 class="difficulty">EASY</h3>
+                                </div>
+                            </div>
+                            <div class="absolute gameGrid">
+                                <div class="gameCase case1">
+                                    <p class="caseParagraph">o</p>
+                                </div>
+                                <div class="gameCase case2">
+                                    <p class="caseParagraph">x</p>
+                                </div>
+                                <div class="gameCase case3">
+                                    <p class="caseParagraph">X</p>
+                                </div>
+                                <div class="gameCase case4">
+                                    <p class="caseParagraph">X</p>
+                                </div>
+                                <div class="gameCase case5">
+                                    <p class="caseParagraph">O</p>
+                                </div>
+                                <div class="gameCase case6">
+                                    <p class="caseParagraph">o</p>
+                                </div>
+                                <div class="gameCase case7">
+                                    <p class="caseParagraph">x</p>
+                                </div>
+                                <div class="gameCase case8">
+                                    <p class="caseParagraph">O</p>
+                                </div>
+                                <div class="gameCase case9">
+                                    <p class="caseParagraph">X</p>
+                                </div>
+                            </div>
+                            <div class="absolute countContainer">
+                                <div class="countWin">
+                                    <h3 class="display">WIN</h3>
+                                    <h4 class="number">6</h4>
+                                </div>
+                                <div class="countLose">
+                                    <h3 class="display">LOSE</h3>
+                                    <h4 class="number">3</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faceTop"></div>
+                    <div class="faceBottom"></div>
+                    <div class="crossContainer">
+                        <div class="horizontalCross"></div>
+                        <div class="verticalCross"></div>
+                        <div class="coverHorCross">
+                            <div class="clickLeft">
+                                <div class="whiteDashLeft"></div>
+                            </div>
+                            <div class="clickRight">
+                                <div class="whiteDashRight"></div>
+                            </div>
+                        </div>
+                        <div class="coverVerCross">
+                            <div class="clickUp">
+                                <div class="whiteDashUp"></div>
+                            </div>
+                            <div class="clickDown">
+                                <div class="whiteDashDown"></div>
+                            </div>
+                        </div>
+                        <div class="crosses leftCross"></div>
+                        <div class="crosses rightCross"></div>
+                        <div class="crosses bottomCross"></div>
+                        <div class="crosses topCross"></div>
+                        <div class="crosses leftBottom"></div>
+                        <div class="crosses leftTop"></div>
+                        <div class="crosses bottomLeft"></div>
+                        <div class="crosses bottomRight"></div>
+                    </div>
+                    <div class="firstLine"></div>
+                    <div class="secondLine"></div>
+                    <div class="dash dash1"></div>
+                    <div class="dash dash2"></div>
+                    <div class="dash dash3"></div>
+                    <div class="optionButton">
+                        <div class="select">
+                            <img class="selectImg" src="./assets/images/select.svg">
+                        </div>
+                        <div class="start">
+                            <img class="startImg" src="./assets/images/start.svg">
+                        </div>
+                        <div class="dash dash4"></div>
+                        <div class="dash dash5"></div>
+                    </div>
+                    <div class="gameButtons">
+                        <div class="button buttonA">a</div>
+                        <div class="button buttonB">b</div>
+                    </div>
+                </div>
+                <div class="face x-neg">
+                    Side three
+                    <div class="topButtons leftrButtonNegBottom"></div>
+                </div>
+                <div class="face x-pos">
+                    Six five
+                    <div class="topButtons rightrButtonNegBottom"></div>
+                </div>
+                <div class="face y-neg">
+                    Side Six
+                </div>
+                <div class="face y-pos">
+                    Side Four
+                    <div class="bigButtons">
+                        <div class="topButtons leftrButtonBase"></div>
+                        <div class="topButtons leftrButtonLeft"></div>
+                        <div class="topButtons leftrButtonRight"></div>
+                        <div class="topButtons leftrButtonTop"></div>
+                        <div class="topButtons leftrButtonFace"></div>
+                        <div class="topButtons leftrButtonWall"></div>
+                        <div class="topButtons rightrButtonBase"></div>
+                        <div class="topButtons rightrButtonLeft"></div>
+                        <div class="topButtons rightrButtonRight"></div>
+                        <div class="topButtons rightrButtonTop"></div>
+                        <div class="topButtons rightrButtonFace"></div>
+                        <div class="topButtons rightrButtonWall"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="p5.min.js"></script>
+    <script src="vanta.topology.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body 
+{
+  overflow: hidden;
+  margin: 0;
+}
+
+.bg
+{
+  margin: 0;
+}
+.container 
+{
+  height: 300px;
+  width: 600px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 500px;
+  bottom: 0;
+  margin: auto;
+  perspective: 1200px;
+  transition: transform 2s;
+}
+
+/*********
+
+GAMEBOY IN 3D
+
+***********/
+
+.cube 
+{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  transition: transform 2s ease;
+  transform-style: preserve-3d;
+}
+
+.face 
+{
+  position: absolute;
+  margin: auto;
+  height: 100px;
+  width: 100px;
+  opacity: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: transform 1s ease;
+  bottom: 0;
+  transform-style: preserve-3d;
+}
+
+.face.z-neg 
+{
+  background: #b2935c;
+  border-radius: 10px;
+  height: 300px;
+  width: 600px;
+  transform: translateZ(-25px);
+}
+
+.face.z-pos 
+{
+  background: #a23339;
+  height: 298px;
+  width: 598px;
+  border-radius: 10px;
+  transform: translateZ(25px);
+  display: flex;
+  align-items: center;
+  border: 2px solid #a23339;
+}
+
+.face.x-neg 
+{
+  background: #a23339;
+  height: 300px;
+  width: 50px;
+  transform: rotateY(-90deg) translateZ(300px);
+  border-radius: 10px;
+}
+.face.x-pos 
+{
+  background: #a23339;
+  height: 300px;
+  width: 50px;
+  transform: rotateY(90deg) translateZ(300px);
+  border-radius: 10px;
+}
+.face.y-pos {
+  background: #a23339;
+  height: 50px;
+  width: 600px;
+  transform: rotateX(90deg) translateZ(150px);
+  border-radius: 10px;
+}
+.face.y-neg {
+  background: #a23339;
+  height: 50px;
+  width: 600px;
+  transform: rotateX(-90deg) translateZ(150px);
+  border-radius: 10px;
+}
+
+.faceTop
+{
+  height: 2620px;
+  width: 600px;
+  background:
+  radial-gradient(circle at top,transparent 1200px,#b2935c 0) top,
+  radial-gradient(circle at bottom,transparent 1200px,#b2935c 0) bottom;
+  background-size:100% 50%;
+  background-repeat:no-repeat;
+  position: absolute;
+  top: -1160px;
+}
+
+/********
+
+SCREEN IN THE GAMEBOY
+
+***********/
+
+
+.containerScreen
+{
+  font-family: 'Press Start 2P', cursive;
+  transform: translateZ(1px);
+  position: absolute;
+  left: 150px;
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+  background: #e6f4fd;
+  background: linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%);
+  box-shadow: inset 6px 0px 13px #adb7be, 
+              inset -6px 0px 13px #c1cbd3;
+  border: 4px solid #a23339;
+}
+
+.logoGameBoy
+{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoGameBoy .logo
+{
+  width: 70%;
+  height: 70%;
+  opacity: 1;
+}
+
+.logoGameBoy.changeOpacity .logo
+{
+  opacity: 0;
+  transition: all 3s;
+}
+
+.absolute
+{
+  position: absolute;
+}
+
+.gridContainer
+{
+  display: flex;
+  height: 150px;
+  text-align: center;
+  text-transform: uppercase;
+  justify-content: center;
+  margin: 25px 0;
+  display: none;
+}
+
+.gameGrid{
+  display: grid;
+  width: 150px;
+  height: 150px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border: 2px #4c4d9f solid;
+  border-radius: 5px;
+}
+
+.gameGrid .gameCase
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px #4c4d9f solid;
+  /* background: floralwhite; */
+}
+
+.gameGrid .gameCase .caseParagraph
+{
+  font-size: 30px;
+  margin: 0;
+  color: #4c4d9f;
+}
+
+.countContainer
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  right: 12.5px;
+  width: 50px;
+  height: 150px;
+}
+
+.countWin
+{
+  width: 100%;
+  height: 47px;
+  transform: translate(0px, 5px);
+}
+
+.countLose
+{
+  width: 100%;
+  height: 47px;
+  transform: translate(0px, 5px);
+}
+
+.countContainer .display
+{
+  color: #4c4d9f;
+  font-size: 10px;
+  margin: 0;
+}
+
+.countContainer .number
+{
+  color: #4c4d9f;
+  font-size: 30px;
+  margin: 0;
+}
+
+.dificultyContainer
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  left: 12.5px;
+  width: 50px;
+  height: 150px;
+}
+
+.dificultyContainer .difficulty
+{
+  color: #4c4d9f;
+  font-size: 10px;
+  margin: 0;
+}
+
+.dificultyContainer .difHard
+{
+  width: 100%;
+  height: 6px;
+}
+
+.difHard{
+  opacity: 30%;
+}
+
+.difMedi{
+  opacity: 100%;
+}
+
+.difEasy{
+  opacity: 30%;
+}
+
+/**********
+
+CROSS
+
+************/
+
+.crossContainer
+{
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+}
+.horizontalCross
+{
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  left: 22px;
+  top: 125px;
+  border: 4px solid #a23339;
+  border-radius: 5px;
+}
+
+.horizontalCross::after
+{
+  content: '';
+  display: block;
+  border: 2px solid #000000;
+  width: 96px;
+  height: 26px;
+}
+.verticalCross
+{
+  height: 100px;
+  width: 30px;
+  position: absolute;
+  left: 58px;
+  top: 88px;
+  border: 4px solid #a23339;
+  border-radius: 5px;
+}
+
+.verticalCross::after
+{
+  content: '';
+  display: block;
+  border: 2px solid #000000;
+  height: 96px;
+  width: 26px;
+}
+
+.coverHorCross
+{
+  width: 96px;
+  height: 26px;
+  background: linear-gradient(135deg, #28292e 0%, #8e98a4 100%);
+  position: absolute;
+  left: 28px;
+  top: 131px;
+  transform: translateZ(5px);
+}
+
+.coverVerCross
+{
+  height: 96px;
+  width: 26px;
+  background: linear-gradient(135deg, #28292e 0%, #8e98a4 100%);
+  position: absolute;
+  top: 94px;
+  left: 64px;
+  transform: translateZ(5px);
+}
+
+.clickLeft
+{
+  position: absolute;
+  width: 35px;
+  height: 26px;
+}
+
+.whiteDashLeft
+{
+  height: 2px;
+  width: 11px;
+  background: #d9dde6;
+  position: absolute;
+  left: 8px;
+  top: 11.5px;
+}
+
+.clickRight
+{
+  position: absolute;
+  width: 35px;
+  height: 26px;
+  left: 61px;
+}
+
+.whiteDashRight
+{
+  height: 2px;
+  width: 11px;
+  background: #d9dde6;
+  position: absolute;
+  left: 16px;
+  top: 11.5px;
+}
+
+.clickUp
+{
+  position: absolute;
+  width: 26px;
+  height: 35px;
+  left: 0px;
+}
+
+.whiteDashUp
+{
+  height: 11px;
+  width: 2px;
+  background: #d9dde6;
+  position: absolute;
+  left: 11.5px;
+  top: 8px;
+}
+
+.clickDown
+{
+  position: absolute;
+  width: 26px;
+  height: 33px;
+  left: 0px;
+  top: 63px;
+}
+
+
+.whiteDashDown
+{
+  height: 11px;
+  width: 2px;
+  background: #d9dde6;
+  position: absolute;
+  left: 11.5px;
+  top: 13px;
+}
+
+.crossRelief
+{
+  transform-style: preserve-3d;
+}
+
+.crosses
+{
+  position: absolute;
+  background: #222222;
+}
+
+.leftCross
+{
+  top: 129px;
+  left: 22px;
+  height: 28px;
+  width: 11px;
+  transform: rotateY(-90deg);
+}
+
+.rightCross
+{
+  position: absolute;
+  top: 129px;
+  left: 119px;
+  height: 28px;
+  width: 11px;
+  transform: rotateY(-90deg);
+}
+
+.bottomCross
+{
+  height: 10px;
+  width: 30px;
+  transform: rotateX(-90deg);
+  top: 186px;
+  left: 63px;
+}
+
+.topCross
+{
+  height: 10px;
+  width: 30px;
+  transform: rotateX(-90deg);
+  top: 89px;
+  left: 63px;
+}
+
+.leftBottom
+{
+  height: 10px;
+  width: 100px;
+  transform: rotateX(-90deg);
+  top: 152px;
+  left: 25px;
+}
+
+.leftTop
+{
+  height: 11px;
+  width: 100px;
+  transform: rotateX(-90deg);
+  top: 125px;
+  left: 25px;
+}
+
+.bottomLeft
+{
+  width: 11px;
+  height: 100px;
+  transform: rotateY(-90deg);
+  top: 93px;
+  left: 58px;
+}
+
+.bottomRight
+{
+  width: 12px;
+  height: 100px;
+  transform: rotateY(-90deg);
+  top: 93px;
+  left: 84px;
+}
+/******* 
+
+LINES
+
+********/
+
+.firstLine
+{
+  width: 600px;
+  background: #3e3b42;
+  height: 3px;
+  position: absolute;
+  top: 210px;
+}
+
+.secondLine
+{
+  width: 600px;
+  background: #3e3b42;
+  height: 3px;
+  position: absolute;
+  top: 220px;
+}
+
+/******* 
+
+DASHES
+
+********/
+
+.dash
+{
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: #3e3b42;
+  box-shadow: 1px 1px 0px 0.1px #f5dbc4;
+  position: absolute;
+}
+
+.dash1
+{
+  right: 110px;
+  bottom: 43px;
+}
+
+.dash2
+{
+  right: 97px;
+  bottom: 43px;
+}
+
+.dash3
+{
+  right: 84px;
+  bottom: 43px;
+}
+
+.dash4
+{
+  width: 50px;
+  height: 10px;
+  border-radius: 5px;
+  bottom: 4px;
+  left: 230px;
+  box-shadow: inset 1px 1px 0px 1px #000000;
+}
+
+.dash5
+{
+  width: 50px;
+  height: 10px;
+  border-radius: 5px;
+  bottom: 4px;
+  left: 340px;
+  box-shadow: inset 1px 1px 0px 1px #000000;
+}
+
+/****************
+
+OPTIONS BUTTONS
+
+*****************/
+
+.selectImg
+{
+  width: 70px;
+  height: auto;
+  position: absolute;
+  font-size: 10px;
+  color: #3e3b42;
+  text-transform: uppercase;
+  bottom: 15px;
+  left: 220px;
+}
+.startImg
+{
+  width: 70px;
+  height: auto;
+  position: absolute;
+  font-size: 10px;
+  color: #3e3b42;
+  text-transform: uppercase;
+  bottom: 15px;
+  left: 330px;
+}
+
+/****************
+
+GAME BUTTONS
+
+*****************/
+
+.button
+{
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #a23339;
+  background: radial-gradient(#28292e 50%, #8e98a4 100%);
+  color: #ffffff;
+  box-shadow: inset 2px 1px 0px 1px #000000;
+}
+
+.buttonA
+{
+  right: 15px;
+  top: 80px;
+}
+
+.buttonB
+{
+  right: 80px;
+  top: 120px;
+}
+
+/***********
+
+BIG BUTTONS ON Y POS
+
+************/
+
+.bigButtons
+{
+  transform-style: preserve-3d;
+}
+
+.topButtons
+{
+  background: #3e3b42;
+  position: absolute;
+}
+.leftrButtonBase
+{
+  width: 130px;
+  height: 30px;
+  top: -10px;
+}
+
+.leftrButtonLeft
+{
+  width: 21px;
+  height: 30px;
+  transform: rotateY(-90deg);
+  top: -10px;
+  left: -19px;
+}
+
+.leftrButtonRight
+{
+  width: 21px;
+  height: 30px;
+  transform: rotateY(-90deg);
+  top: -10px;
+  left: 120px;
+}
+
+.leftrButtonTop
+{
+  width: 140px;
+  height: 30px;
+  top: -10px;
+  left: -9px;
+  transform: translateZ(10px);
+}
+
+.leftrButtonWall
+{
+  width: 140px;
+  height: 20px;
+  transform: rotateX(-90deg);
+  top: -20px;
+  left: -9px;
+}
+
+.leftrButtonFace
+{
+  width: 143px;
+  height: 20px;
+  transform: rotateX(-90deg);
+  top: 10px;
+  left: -10px;
+}
+
+.rightrButtonWall
+{
+  width: 140px;
+  height: 20px;
+  transform: rotateX(-90deg);
+  top: -20px;
+  left: 467px;
+}
+
+.rightrButtonBase
+{
+  width: 130px;
+  height: 30px;
+  top: -10px;
+  left: 467px;
+}
+
+.rightrButtonLeft
+{
+  width: 21px;
+  height: 30px;
+  transform: rotateY(-90deg);
+  top: -10px;
+  left: 457px;
+}
+
+.rightrButtonRight
+{
+  width: 21px;
+  height: 30px;
+  transform: rotateY(-90deg);
+  top: -10px;
+  left: 597px;
+}
+
+.rightrButtonTop
+{
+  width: 141px;
+  height: 30px;
+  top: -10px;
+  left: 467px;
+  transform: translateZ(10px);
+}
+
+.rightrButtonFace
+{
+  width: 141px;
+  height: 20px;
+  transform: rotateX(-90deg);
+  top: 10px;
+  left: 467px;
+}
+
+.rightrButtonWall
+{
+  width: 140px;
+  height: 20px;
+  transform: rotateX(-90deg);
+  top: -20px;
+  left: 467px;
+}
+
+.leftrButtonNegBottom
+{
+  width: 30px;
+  height: 20px;
+  transform: rotateX(-90deg);
+  top: -1px;
+  left: 9px;
+}
+
+.rightrButtonNegBottom
+{
+  width: 30px;
+  height: 17px;
+  transform: rotateX(-90deg);
+  top: 0px;
+  left: 10px;
+}
+
