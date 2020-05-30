@@ -4,6 +4,7 @@ body
 {
   overflow: hidden;
   margin: 0;
+  background: #000000;
 }
 
 .bg
@@ -17,7 +18,7 @@ body
   position: absolute;
   left: 0;
   right: 0;
-  top: 500px;
+  top: 350px;
   bottom: 0;
   margin: auto;
   perspective: 1200px;
@@ -72,6 +73,7 @@ GAMEBOY IN 3D
   height: 298px;
   width: 598px;
   border-radius: 10px;
+  transform-style: preserve-3d;
   transform: translateZ(25px);
   display: flex;
   align-items: center;
@@ -800,4 +802,3 @@ BIG BUTTONS ON Y POS
   top: 0px;
   left: 10px;
 }
-

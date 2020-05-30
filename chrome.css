@@ -1,0 +1,49 @@
+.container
+{
+    position: absolute;
+    top: 750px;
+}
+.faceTop
+{
+    transform: translateZ(6px)
+}
+
+.containerScreen
+{
+    transform: translateZ(10px)
+}
+
+.crossContainer
+{
+    transform: translateZ(15px)
+}
+
+.firstLine
+{
+    transform: translateZ(9px)
+}
+
+.secondLine
+{
+    transform: translateZ(9px)
+}
+
+.button
+{
+    transform: translateZ(9px)
+}
+
+.dash
+{
+    transform: translateZ(9px)
+}
+
+.dash4
+{
+    transform: translateZ(0px)
+}
+
+.dash5
+{
+    transform: translateZ(0px)
+}
