@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11 - CSS Transform</title>
+    <title>3D GameBoy</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./chrome.css" type="text/chrome/safari">
@@ -18,8 +18,13 @@
                 <div class="face z-pos">
                     Side two
                     <div class="containerScreen"> 
-                        <div class="absolute logoGameBoy">
-                            <img class="logo" src="./assets/images/Gameboy_logo_blue.svg" alt="">
+                        <div class="enterScreen">
+                            <div class="absolute logoGameBoy">
+                                <img class="logo" src="./assets/images/Gameboy_logo_blue.svg" alt="">
+                            </div>
+                            <div class="absolute enterText">
+                                <h3 class="textEnter">Press A to Start</h3>
+                            </div>
                         </div>
                         <div class="gridContainer">
                             <div class="absolute dificultyContainer">
@@ -34,38 +39,43 @@
                                 </div>
                             </div>
                             <div class="absolute gameGrid">
-                                <div class="gameCase case1">
-                                    <p class="caseParagraph">o</p>
+                                <div class="gameCase">
+                                    <p class="col1row1 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case2">
-                                    <p class="caseParagraph">x</p>
+                                <div class="gameCase">
+                                    <p class="col2row1 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case3">
-                                    <p class="caseParagraph">X</p>
+                                <div class="gameCase">
+                                    <p class="col3row1 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case4">
-                                    <p class="caseParagraph">X</p>
+                                <div class="gameCase">
+                                    <p class="col1row2 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case5">
-                                    <p class="caseParagraph">O</p>
+                                <div class="gameCase">
+                                    <p class="col2row2 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case6">
-                                    <p class="caseParagraph">o</p>
+                                <div class="gameCase">
+                                    <p class="col3row2 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case7">
-                                    <p class="caseParagraph">x</p>
+                                <div class="gameCase">
+                                    <p class="col1row3 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case8">
-                                    <p class="caseParagraph">O</p>
+                                <div class="gameCase">
+                                    <p class="col2row3 caseParagraph"></p>
                                 </div>
-                                <div class="gameCase case9">
-                                    <p class="caseParagraph">X</p>
+                                <div class="gameCase">
+                                    <p class="col3row3 caseParagraph"></p>
                                 </div>
                             </div>
                             <div class="absolute countContainer">
                                 <div class="countWin">
                                     <h3 class="display">WIN</h3>
                                     <h4 class="number">6</h4>
+                                </div>
+                                <h3 class="player">Player</h3>
+                                <div class="playerTurnAB">
+                                    <h3 class="playerTurnA">A</h3>
+                                    <h3 class="playerTurnB">B</h3>
                                 </div>
                                 <div class="countLose">
                                     <h3 class="display">LOSE</h3>
@@ -157,6 +167,7 @@
     </div>
     <script src="p5.min.js"></script>
     <script src="vanta.topology.min.js"></script>
+    <script src="caseArray.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

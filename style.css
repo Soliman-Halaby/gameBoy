@@ -169,6 +169,43 @@ SCREEN IN THE GAMEBOY
   transition: all 3s;
 }
 
+.enterScreen.changeOpacity img{
+  opacity: 0;
+  transition: all 3s;
+}
+
+
+.enterScreen
+{
+  opacity: 1;
+}
+
+.enterText
+{
+  display: flex;
+  justify-content: center;
+  bottom: 10px;
+  width: 100%;
+}
+
+.enterScreen .textEnter
+{
+  font-size: 10px;
+  color: #4c4d9f;
+  animation: textAlternate 2s infinite;
+}
+
+
+@keyframes textAlternate 
+{
+  0%, 100% {
+      opacity: 100%;
+  }
+  50% {
+      opacity: 0%;
+  }
+}
+
 .absolute
 {
   position: absolute;
@@ -201,14 +238,18 @@ SCREEN IN THE GAMEBOY
   align-items: center;
   justify-content: center;
   border: 2px #4c4d9f solid;
-  /* background: floralwhite; */
 }
 
 .gameGrid .gameCase .caseParagraph
 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 30px;
   margin: 0;
   color: #4c4d9f;
+  width: 100%;
+  height: 100%;
 }
 
 .countContainer
@@ -268,6 +309,13 @@ SCREEN IN THE GAMEBOY
   margin: 0;
 }
 
+.playerTurnA, .playerTurnB, .player
+{
+  color: #4c4d9f;
+  font-size: 10px;
+  margin: 0;
+}
+
 .dificultyContainer .difHard
 {
   width: 100%;
@@ -285,6 +333,14 @@ SCREEN IN THE GAMEBOY
 .difEasy{
   opacity: 30%;
 }
+
+.playerTurnAB
+{
+  width: 80px;
+  display: flex;
+  justify-content: space-around;
+}
+
 
 /**********
 
