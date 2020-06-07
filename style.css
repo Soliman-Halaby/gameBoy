@@ -4,12 +4,32 @@ body
 {
   overflow: hidden;
   margin: 0;
-  background: #000000;
+  background: #7f673d;
 }
 
 .bg
 {
   margin: 0;
+}
+
+.rules
+{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  text-align: center;
+  margin: 20px;
+  position: absolute;
+  letter-spacing: -1px;
+  color: #ffffff;
+  z-index: 1;
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.action
+{
+  color: #ffffffbf;
 }
 .container 
 {
@@ -158,9 +178,9 @@ SCREEN IN THE GAMEBOY
 
 .logoGameBoy .logo
 {
+  margin: 30px 0px;
   width: 70%;
   height: 70%;
-  opacity: 1;
 }
 
 .logoGameBoy.changeOpacity .logo
@@ -168,12 +188,6 @@ SCREEN IN THE GAMEBOY
   opacity: 0;
   transition: all 3s;
 }
-
-.enterScreen.changeOpacity img{
-  opacity: 0;
-  transition: all 3s;
-}
-
 
 .enterScreen
 {
@@ -232,7 +246,7 @@ SCREEN IN THE GAMEBOY
   border-radius: 5px;
 }
 
-.gameGrid .gameCase
+.gameGrid .gameBox
 {
   display: flex;
   align-items: center;
@@ -240,7 +254,7 @@ SCREEN IN THE GAMEBOY
   border: 2px #4c4d9f solid;
 }
 
-.gameGrid .gameCase .caseParagraph
+.gameGrid .gameBox .boxParagraph
 {
   display: flex;
   align-items: center;
@@ -327,18 +341,59 @@ SCREEN IN THE GAMEBOY
 }
 
 .difMedi{
-  opacity: 100%;
+  opacity: 30%;
 }
 
 .difEasy{
   opacity: 30%;
 }
 
+
 .playerTurnAB
 {
-  width: 80px;
   display: flex;
   justify-content: space-around;
+}
+
+
+.endGameText
+{
+  margin: 0;
+}
+
+.endGameRestart
+{
+  margin: 0;
+}
+
+.endGame
+{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 150px;
+  color: #4c4d9f;
+  text-shadow: 2px 2px 0px #dddfe4, 2px -2px 0px #dddfe4, -2px -2px 0px #dddfe4, -2px 2px 0px #dddfe4;
+  z-index: 10;
+}
+
+.endGame .endGameText
+{
+  display: flex;
+  align-items: center;
+  height: 33%;
+  font-size: 20px;
+}
+
+.endGame .endGameRestart
+{
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 10px;
+  height: 25%;
+  font-size: 7px;
+  animation: textAlternate 2s infinite;
 }
 
 
@@ -662,7 +717,7 @@ OPTIONS BUTTONS
   position: absolute;
   font-size: 10px;
   color: #3e3b42;
-  text-transform: uppercase;
+  text-transform: upperbox;
   bottom: 15px;
   left: 220px;
 }
@@ -673,7 +728,7 @@ OPTIONS BUTTONS
   position: absolute;
   font-size: 10px;
   color: #3e3b42;
-  text-transform: uppercase;
+  text-transform: upperbox;
   bottom: 15px;
   left: 330px;
 }

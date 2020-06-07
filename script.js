@@ -1,13 +1,16 @@
-VANTA.TOPOLOGY({
+VANTA.WAVES({
   el: ".bg",
   mouseControls: true,
   touchControls: true,
-  minHeight: 1000,
-  minWidth: 1000,
+  minHeight: 800.00,
+  minWidth: 200.00,
   scale: 1.00,
   scaleMobile: 1.00,
-  color: 0x891e1e,
-  backgroundColor: 0x0,
+  color: 0x8c8566,
+  shininess: 0.00,
+  waveHeight: 10.00,
+  waveSpeed: 0.65,
+  zoom: 0.65
 })
 
 const is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1
@@ -36,8 +39,6 @@ window.addEventListener('keydown', (event) =>
         rotation.style.transform = `rotateX(${count2}deg)`
     }
 })
-
-
 const enterScreen = document.querySelector('.enterScreen')
 const gridContainer = document.querySelector('.gridContainer')
 const enterText = document.querySelector('.enterText')
@@ -46,15 +47,25 @@ const playerTurnClassB = document.querySelector('.playerTurnB')
 const difEasy = document.querySelector('.difEasy')
 const difMedi = document.querySelector('.difMedi')
 const difHard = document.querySelector('.difHard')
+const endGame = document.querySelector('.endGame')
+const endGameText = document.querySelector('.endGameText')
+const classWinA = document.querySelector('.classWinA')
+const classWinB = document.querySelector('.classWinB')
+const titleWinA = document.querySelector('.titleWinA')
+const titleWinB = document.querySelector('.titleWinB')
 
-let caseList = ['.col1row1', '.col2row1', '.col3row1', '.col1row2', '.col2row2', '.col3row2', '.col1row3', '.col2row3', '.col3row3']
 let colNumber = 2
 let rowNumber = 2
 let canPlay = 1
 let nbPlay = 0
 let canPlayBut = 1
 let gameStart = 0
-let gameModeSelect = 0
+let gameModeSelect = 2
+let restart = 0
+let winner = ''
+let countWinA = 0
+let countWinB = 0
+let playerTurn1v1 = 0
 
 playerATurn()
 gameMode()
@@ -75,17 +86,25 @@ function playerBTurn(){
 // Change the mode of game
 function gameMode(){
     if(gameModeSelect === 0){
+        playerTurn1v1 = 0
+        titleWinA.textContent = 'Win'
+        titleWinB.textContent = 'Lose'
         gameModeSelect++
         difHard.style.opacity = '30%'; 
         difEasy.style.opacity = '100%';
+        resetGrid()
     } else if (gameModeSelect === 1){
         gameModeSelect++
         difEasy.style.opacity = '30%'; 
         difMedi.style.opacity = '100%';
+        resetGrid()
     } else if (gameModeSelect === 2){
+        titleWinA.textContent = 'A'
+        titleWinB.textContent = 'B'
         gameModeSelect = 0
         difMedi.style.opacity = '30%'; 
         difHard.style.opacity = '100%';
+        resetGrid()
     }
 }
 
@@ -106,11 +125,9 @@ window.addEventListener('keydown', (event) =>
 
 window.addEventListener('keydown', (event) =>
 {
-    if (event.code === 'ShiftRight') {
+    if (event.code === 'ShiftRight') {      //change game mode if you press this key
         gameMode()
-        
-    } else if (event.code === 'Slash' && gameStart === 0){
-        // if the player want to start
+    } else if (event.code === 'Slash' && gameStart === 0){      //to change who starts
         canPlayBut++
         if(canPlayBut%2 != 0){
             playerATurn()
@@ -120,71 +137,88 @@ window.addEventListener('keydown', (event) =>
             computerTurn()
             console.log('computer');
         }
-    } else if (event.code === 'ArrowDown' && canPlay === 1) {
+    } else if (event.code === 'ArrowDown' && canPlay === 1) { //arrows to move the box selection cursor
         if (rowNumber < 3 && rowNumber >= 1) {
-            unselectCase()
+            unselectBox()
             rowNumber = rowNumber + 1
-            selectCase()
+            selectBox()
         }
     } else if (event.code === 'ArrowUp' && canPlay === 1){
         if (rowNumber <= 3 && rowNumber > 1) {
-            unselectCase()
+            unselectBox()
             rowNumber = rowNumber - 1
-            selectCase()
+            selectBox()
         }
     } else if (event.code === 'ArrowRight' && canPlay === 1){
         if (colNumber < 3 && colNumber >= 1) {
-            unselectCase()
+            unselectBox()
             colNumber = colNumber + 1
-            selectCase()
+            selectBox()
         }
     } else if (event.code === 'ArrowLeft' && canPlay === 1){
         if (colNumber <= 3 && colNumber > 1) {
-            unselectCase()
+            unselectBox()
             colNumber = colNumber - 1
-            selectCase()
+            selectBox()
         }
     } else if (event.code === 'Enter'){
-        verifCase()
+        if (restart === 0) {
+            verifBox()
+        } else {        //if the game is finished, enter closes the message and restarts the game
+            endGame.style.display = 'none'
+            restart = 0
+            resetGrid()
+            canPlay = 1
+        }
     }
 })
 
 // erase the background color of the box if the player changes boxes
-function unselectCase(){
-    const caseClass = '.col' + colNumber + 'row' + rowNumber
-    const caseSelectorMem = document.querySelector(caseClass)
-    caseSelectorMem.style.background = '#4c4d9f00'; 
-    console.log(caseClass)
+function unselectBox(){
+    const boxClass = '.col' + colNumber + 'row' + rowNumber
+    const boxSelectorMem = document.querySelector(boxClass)
+    boxSelectorMem.style.background = '#4c4d9f00'; 
 }
 
 // add background color of the box if the player select it
-function selectCase(){
-    const caseClass = '.col' + colNumber + 'row' + rowNumber
-    // console.log(caseClass);
-    const caseSelector = document.querySelector(caseClass)
-    console.log(caseSelector);
-    caseSelector.style.background = '#4c4d9f4D'; 
+function selectBox(){
+    const boxClass = '.col' + colNumber + 'row' + rowNumber
+    const boxSelector = document.querySelector(boxClass)
+    boxSelector.style.background = '#4c4d9f4D'; 
 }
 
 // checks if the box selected by the player is already occupied
-function verifCase(){
-    const caseClass = '.col' + colNumber + 'row' + rowNumber
-    const caseState = caseArray.find(search => search.class == caseClass ).state
-    const caseSelector = document.querySelector(caseClass)
+function verifBox(){
+    const boxClass = '.col' + colNumber + 'row' + rowNumber
+    const boxState = boxArray.find(search => search.class == boxClass ).state
+    const boxSelector = document.querySelector(boxClass)
     // if the box is equal to 0 then it is free
-    if (caseState === '0') {
-        caseSelector.textContent = 'o'
+    if (boxState === '0') {        //do not allow placement if the box is already in use
+        if (playerTurn1v1 === 0) {
+            boxSelector.textContent = 'o'
+            boxArray.find(search => search.class == boxClass ).state = '1'
+        } else {
+            boxSelector.textContent = 'x'
+            boxArray.find(search => search.class == boxClass ).state = '2'
+        }
         canPlay = 0
         nbPlay++
-        caseArray.find(search => search.class == caseClass ).state = 1
-        unselectCase()
-        computerTurn()
+        unselectBox()
         winCheck()
-    } else {
-        console.log('occupied');
-        // canPlay = 0
-        // playerBTurn()
-        // unselectCase()
+        if (restart === 0) {        //do not allow computer to play if the game is finished
+            if (gameModeSelect === 0) {
+                canPlay = 1
+                if (playerTurn1v1 === 0) {
+                    playerBTurn()
+                    playerTurn1v1 = 1
+                } else {
+                    playerATurn()
+                    playerTurn1v1 = 0
+                }
+            } else {
+                computerTurn()
+            }
+        }
     }
 }
 
@@ -194,61 +228,141 @@ function computerTurn(){
     gameStart = 1
     canPlay = 0
     playerBTurn()
-    const newList = []
-    setTimeout(function () {
+    const freeBoxList = []
+    setTimeout(function () {        //the time it takes for the computer to play
         // if the total number of turns played is less than the number of boxes, then there are places left
-        if (nbPlay < caseArray.length) {
-            for (i = 0; i <= caseArray.length-1; i++) {
-                const caseState = caseArray.find(search => search.nb == i ).state
-                if (caseState === '0') {
-                    const newListElement = caseArray.find(search => search.nb == i ).class
-                    newList.push(newListElement)
+        if (nbPlay < boxArray.length) {
+            for (i = 0; i <= boxArray.length-1; i++) {
+                const boxState = boxArray.find(search => search.nb == i ).state
+                if (boxState === '0') {        //get all unused classes from the boxArray and put them in freeBoxList
+                    const freeBoxListElement = boxArray.find(search => search.nb == i ).class
+                    freeBoxList.push(freeBoxListElement)
                 }
             }
             nbPlay++
-            const randomElement = Math.floor(Math.random() * newList.length)
-            const caseRandom = newList[randomElement];
-            const caseSelector = document.querySelector(caseRandom)
-            caseArray.find(search => search.class == caseRandom ).state = 2
-            caseSelector.textContent = 'x'
-            playerATurn()
+            if (gameModeSelect === 2) {
+                hardMode()
+            } else {        //randomly draws a box from freeBoxList
+                const randomElement = Math.floor(Math.random() * freeBoxList.length)
+                const boxRandom = freeBoxList[randomElement];
+                const boxSelector = document.querySelector(boxRandom)
+                boxArray.find(search => search.class == boxRandom ).state = '2'
+                boxSelector.textContent = 'x'
+            }
             winCheck()
+            playerATurn()
             canPlay = 1
-        } else if (nbPlay >= caseArray.length){ //if the total number of turns played is greater than the number of boxes, then there are no more places
+        } else if (nbPlay >= boxArray.length){ //if the total number of turns played is greater than the number of boxes, then there are no more places
             console.log('cest fini');
         }
     }, 500)
 }
 
 function winCheck(){
-    const newList2 = []
-    for (i = 0; i <= caseArray.length-1; i++) {
-        const caseState = caseArray.find(search => search.nb == i ).state
-        const newListElement = caseArray.find(search => search.nb == i ).state
-        newList2.push(newListElement)
+    const winCheckList = []
+    for (i = 0; i <= boxArray.length-1; i++) {     //get the states of each box in boxArray and put then in winCheckList
+        const boxState = boxArray.find(search => search.nb == i ).state
+        const freeBoxListElement = boxArray.find(search => search.nb == i ).state
+        winCheckList.push(freeBoxListElement)
     }
-    console.log(newList2);
-    if (newList2[0] === newList2[1] && newList2[0] === newList2[2] && newList2[0] !== '0') {
+    //check all winning combinations
+    if (winCheckList[0] === winCheckList[1] && winCheckList[0] === winCheckList[2] && winCheckList[0] !== '0') {
+        if (winCheckList[0] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-        
-    } else if (newList2[3] === newList2[4] && newList2[3] === newList2[5] && newList2[3] !== '0') {
+    } else if (winCheckList[3] === winCheckList[4] && winCheckList[3] === winCheckList[5] && winCheckList[3] !== '0') {
+        if (winCheckList[3] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-    } else if (newList2[6] === newList2[7] && newList2[6] === newList2[8] && newList2[6] !== '0') {
+    } else if (winCheckList[6] === winCheckList[7] && winCheckList[6] === winCheckList[8] && winCheckList[6] !== '0') {
+        if (winCheckList[6] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-    } else if (newList2[0] === newList2[3] && newList2[0] === newList2[6] && newList2[0] !== '0') {
+    } else if (winCheckList[0] === winCheckList[3] && winCheckList[0] === winCheckList[6] && winCheckList[0] !== '0') {
+        if (winCheckList[0] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-    } else if (newList2[1] === newList2[4] && newList2[1] === newList2[7] && newList2[1] !== '0') {
+    } else if (winCheckList[1] === winCheckList[4] && winCheckList[1] === winCheckList[7] && winCheckList[1] !== '0') {
+        if (winCheckList[1] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-    } else if (newList2[2] === newList2[5] && newList2[2] === newList2[8] && newList2[2] !== '0') {
+    } else if (winCheckList[2] === winCheckList[5] && winCheckList[2] === winCheckList[8] && winCheckList[2] !== '0') {
+        if (winCheckList[2] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-    } else if (newList2[0] === newList2[4] && newList2[0] === newList2[8] && newList2[0] !== '0') {
+    } else if (winCheckList[0] === winCheckList[4] && winCheckList[0] === winCheckList[8] && winCheckList[0] !== '0') {
+        if (winCheckList[0] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
-    } else if (newList2[2] === newList2[4] && newList2[2] === newList2[6] && newList2[2] !== '0') {
+    } else if (winCheckList[2] === winCheckList[4] && winCheckList[2] === winCheckList[6] && winCheckList[2] !== '0') {
+        if (winCheckList[2] === '1') {
+            winner = 'A'
+        } else {
+            winner = 'B'
+        }
         winFunct()
     }
 }
 
 function winFunct(){
+    if (winner === 'A') {
+        if (gameModeSelect === 0) {
+            endGameText.textContent = 'PA Win'
+        } else {
+            endGameText.textContent = 'Win'
+        }
+        countWinA++
+        classWinA.textContent = countWinA
+    } else if (winner === 'B') {
+        if (gameModeSelect === 0) {
+            endGameText.textContent = 'PB Win'
+        } else {
+            endGameText.textContent = 'Lose'
+        }
+        countWinB++
+        classWinB.textContent = countWinB
+    }
+    restart = 1
+    gameStart = 0
+    canPlayBut = 1
+    endGame.style.display = 'flex'
     console.log('gg champion');
-    
+
+}
+
+function resetGrid(){
+    for (i = 0; i <= boxArray.length-1; i++) {
+        //reset states of all boxs in boxArray
+        boxArray.find(search => search.nb == i ).state = '0'
+        const boxClass = boxArray.find(search => search.nb == i ).class
+        const boxSelector = document.querySelector(boxClass)
+        //reset display
+        boxSelector.textContent = ''
+    }
+    nbPlay = 0
+}
+
+function hardMode(){
+    console.log('hard');
 }
