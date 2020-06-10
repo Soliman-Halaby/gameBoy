@@ -18,6 +18,7 @@ const difEasy = document.querySelector('.difEasy')
 const dif1V1 = document.querySelector('.dif1V1')
 const endGame = document.querySelector('.endGame')
 const endGameText = document.querySelector('.endGameText')
+const endGameRestart = document.querySelector('.endGameRestart')
 const classWinA = document.querySelector('.classWinA')
 const classWinB = document.querySelector('.classWinB')
 const titleWinA = document.querySelector('.titleWinA')
@@ -31,6 +32,8 @@ const startDash = document.querySelector('.dash5')
 const buttonA = document.querySelector('.buttonA')
 const buttonB = document.querySelector('.buttonB')
 const gameBoyOnAudio = document.querySelector('.gameBoyOn')
+const rotation = document.querySelector('.cube')
+
 
 // Declaring variables
 let colNumber = 2
@@ -50,10 +53,6 @@ let screenOnOff = 0
 let count = 0
 let count2 = 0
 
-
-const rotation = document.querySelector('.cube')
-
-
 window.addEventListener('keydown', (event) =>
 {
     if(event.code === 'KeyW')
@@ -66,6 +65,41 @@ window.addEventListener('keydown', (event) =>
     {
         count2 += 30
         rotation.style.transform = `rotateX(${count2}deg)`
+    }
+})
+
+// Switch on off GameBoy
+
+
+window.addEventListener('keydown', (event) =>
+{
+    if(event.code === 'Space')
+    {
+        screenOnOff++
+        screenOff = 0
+        countWinA = 0
+        countWinB = 0
+        classWinA.textContent = '0'
+        classWinB.textContent = '0'
+        if(screenOnOff%2 != 0)
+        {
+            enterText.style.display = 'none'
+            enterScreen.style.display = 'none'
+            containerScreen.style.background = '#262527'
+            containerScreen.style.boxShadow = 'none'
+            gridContainer.style.display = 'none';
+            enterScreen.classList.remove('changeOpacity')
+            resetGrid()
+        }
+        else if(screenOnOff%2 == 0)
+        {
+            // gridContainer.style.display = 'flex'
+            enterScreen.classList.remove('changeOpacity')
+            enterText.style.display = 'flex'
+            enterScreen.style.display = 'block'
+            containerScreen.style.background = 'linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%)'
+            containerScreen.style.boxShadow = 'inset 6px 0px 13px #adb7be, inset -6px 0px 13px #c1cbd3'
+        }
     }
 })
 
@@ -143,14 +177,14 @@ buttonA.addEventListener('mousedown', () =>
     if (screenOff === 0) 
     {
         enterScreen.classList.toggle('changeOpacity')
-        enterText.style.display = 'none'; 
+        enterText.style.display = 'none'
         
         setTimeout(function()
         { 
-            enterScreen.style.display = 'none'; 
-            gridContainer.style.display = 'flex'; 
+            enterScreen.style.display = 'none' 
+            gridContainer.style.display = 'flex' 
             screenOff = 1
-        }, 3000);
+        }, 3000)
     } 
     else 
     {
@@ -177,14 +211,17 @@ buttonA.addEventListener('mouseup', () =>
 buttonB.addEventListener('mousedown', () =>
 {
     buttonB.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
-    canPlayBut++
-    if(canPlayBut%2 != 0)
+    if(gameStart === 0)
     {
-        playerATurn()
-    } 
-    else 
-    {
-        computerTurn()
+        canPlayBut++
+        if(canPlayBut%2 != 0)
+        {
+            playerATurn()
+        } 
+        else if(canPlayBut%2 == 0) 
+        {
+            computerTurn()
+        }
     }
 })
 
@@ -222,14 +259,14 @@ startDash.addEventListener('mousedown', () =>
             enterScreen.style.display = 'none'
             containerScreen.style.background = '#262527'
             containerScreen.style.boxShadow = 'none'
-            gridContainer.style.display = 'none'; 
-            enterScreen.classList.remove('changeOpacity');
+            gridContainer.style.display = 'none' 
+            enterScreen.classList.remove('changeOpacity')
             resetGrid()
         }
         else if(screenOnOff%2 == 0)
         {
-            // gridContainer.style.display = 'flex'; 
-            enterScreen.classList.remove('changeOpacity');
+            // gridContainer.style.display = 'flex' 
+            enterScreen.classList.remove('changeOpacity')
             enterText.style.display = 'flex'
             enterScreen.style.display = 'block'
             containerScreen.style.background = 'linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%)'
@@ -266,20 +303,21 @@ function gameMode()
         titleWinA.textContent = 'Win'
         titleWinB.textContent = 'Lose'
         gameModeSelect++
-        dif1V1.style.opacity = '30%'; 
-        difEasy.style.opacity = '100%';
+        dif1V1.style.opacity = '30%' 
+        difEasy.style.opacity = '100%'
         resetGrid()
         countWinA = 0
         countWinB = 0
         classWinA.textContent = '0'
         classWinB.textContent = '0'
         endGameText.textContent = ''
+        endGameRestart.textContent = ''
     } 
     else if (gameModeSelect === 1) 
     {
         gameModeSelect = 0
-        difEasy.style.opacity = '30%'; 
-        dif1V1.style.opacity = '100%';
+        difEasy.style.opacity = '30%' 
+        dif1V1.style.opacity = '100%'
         titleWinA.textContent = 'A'
         titleWinB.textContent = 'B'
         resetGrid()
@@ -288,6 +326,7 @@ function gameMode()
         classWinA.textContent = '0'
         classWinB.textContent = '0'
         endGameText.textContent = ''
+        endGameRestart.textContent = ''
     } 
     // else if (gameModeSelect === 2)
     // {
@@ -311,41 +350,6 @@ window.addEventListener('keydown', (event) =>
             enterScreen.style.display = 'none'; 
             gridContainer.style.display = 'flex'; 
         }, 3000);
-    }
-})
-
-// Switch on off GameBoy
-
-
-window.addEventListener('keydown', (event) =>
-{
-    if(event.code === 'Space')
-    {
-        screenOnOff++
-        screenOff = 0
-        countWinA = 0
-        countWinB = 0
-        classWinA.textContent = '0'
-        classWinB.textContent = '0'
-        if(screenOnOff%2 != 0)
-        {
-            enterText.style.display = 'none'
-            enterScreen.style.display = 'none'
-            containerScreen.style.background = '#262527'
-            containerScreen.style.boxShadow = 'none'
-            gridContainer.style.display = 'none'; 
-            enterScreen.classList.remove('changeOpacity');
-            resetGrid()
-        }
-        else if(screenOnOff%2 == 0)
-        {
-            // gridContainer.style.display = 'flex'; 
-            enterScreen.classList.remove('changeOpacity');
-            enterText.style.display = 'flex'
-            enterScreen.style.display = 'block'
-            containerScreen.style.background = 'linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%)'
-            containerScreen.style.boxShadow = 'inset 6px 0px 13px #adb7be, inset -6px 0px 13px #c1cbd3'
-        }
     }
 })
 
@@ -410,7 +414,6 @@ window.addEventListener('keydown', (event) =>
     } 
     else if (event.code === 'Enter')
     {
-        console.log(screenOff);
         if (screenOff === 0) 
         {
             enterScreen.classList.toggle('changeOpacity')
@@ -449,6 +452,7 @@ window.addEventListener('keydown', (event) =>
     }
 })
 
+// Effects in the button when we stop 
 window.addEventListener('keyup', (event) =>
 {
     if (event.code === 'ShiftRight') 
@@ -505,7 +509,6 @@ function selectBox()
 // checks if the box selected by the player is already occupied
 function verifBox()
 {
-    console.log(nbPlay)
     const boxClass = `.col${colNumber}row${rowNumber}`
     const boxState = boxArray.find(search => search.class == boxClass ).state
     const boxSelector = document.querySelector(boxClass)
@@ -579,7 +582,7 @@ function computerTurn()
             else 
             {        //randomly draws a box from freeBoxList
                 const randomElement = Math.floor(Math.random() * freeBoxList.length)
-                const boxRandom = freeBoxList[randomElement];
+                const boxRandom = freeBoxList[randomElement]
                 const boxSelector = document.querySelector(boxRandom)
                 boxArray.find(search => search.class == boxRandom ).state = '2'
                 boxSelector.textContent = 'x'
@@ -587,10 +590,6 @@ function computerTurn()
             winCheck()
             playerATurn()
             canPlay = 1
-        } 
-        else if (nbPlay >= boxArray.length)
-        { //if the total number of turns played is greater than the number of boxes, then there are no more places
-            console.log('cest fini');
         }
     }, 500)
 }
@@ -702,7 +701,6 @@ function winCheck()
     }
     else if (nbPlay === 9)
     {
-        console.log('draw')
         endGame.style.display = 'flex'
         endGameText.textContent = 'Draw'
         restart = 1
@@ -716,11 +714,12 @@ function winFunct()
         if (gameModeSelect === 0) 
         {
             endGameText.textContent = 'A Win'
+            endGameRestart.textContent = 'Press A to Restart'
         } 
         else 
         {
             endGameText.textContent = 'Win'
-            
+            endGameRestart.textContent = 'Press A to Restart'
         }
         countWinA++
         classWinA.textContent = countWinA
@@ -730,10 +729,12 @@ function winFunct()
         if (gameModeSelect === 0) 
         {
             endGameText.textContent = 'B Win'
+            endGameRestart.textContent = 'Press A to Restart'
         } 
         else 
         {
             endGameText.textContent = 'Lose'
+            endGameRestart.textContent = 'Press A to Restart'
         }
         countWinB++
         classWinB.textContent = countWinB
@@ -742,7 +743,6 @@ function winFunct()
     gameStart = 0
     canPlayBut = 1
     endGame.style.display = 'flex'
-    console.log('gg champion')
 }
 
 function resetGrid()
@@ -761,5 +761,5 @@ function resetGrid()
 
 // function hardMode()
 // {
-//     console.log('hard');
+//     console.log('hard')
 // }
