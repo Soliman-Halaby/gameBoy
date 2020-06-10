@@ -2,7 +2,7 @@
 const is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1
 if(is_chrome)
 {
-    document.write('<link rel="stylesheet" href="./chrome.css" type="text/css" />')
+    document.write('<link rel="stylesheet" href="./styles/chrome.css" type="text/css" />')
 }
 
 
