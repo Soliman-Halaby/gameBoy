@@ -75,6 +75,7 @@ window.addEventListener('keydown', (event) =>
 {
     if(event.code === 'Space')
     {
+        startDash.style.boxShadow = 'inset 0px 0px 0px 1px #000000'
         screenOnOff++
         screenOff = 0
         countWinA = 0
@@ -232,6 +233,7 @@ buttonB.addEventListener('mouseup', () =>
 
 selectDash.addEventListener('mousedown', () =>
 {
+    console.log('coucou')
     selectDash.style.boxShadow = 'inset 0px 0px 0px 1px #000000'
         {      //change game mode if you press this key
         gameMode()
@@ -337,22 +339,6 @@ function gameMode()
     // }
 }
 
-// Start the game
-window.addEventListener('keydown', (event) =>
-{
-    if (event.code === 'Space') 
-    {
-        enterScreen.classList.toggle('changeOpacity')
-        enterText.style.display = 'none'; 
-        
-        setTimeout(function()
-        { 
-            enterScreen.style.display = 'none'; 
-            gridContainer.style.display = 'flex'; 
-        }, 3000);
-    }
-})
-
 window.addEventListener('keydown', (event) =>
 {
     if (event.code === 'ShiftRight') 
@@ -362,6 +348,7 @@ window.addEventListener('keydown', (event) =>
     } 
     else if (event.code === 'Backspace' && gameStart === 0)
     {      //to change who starts
+        buttonB.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
         canPlayBut++
         if(canPlayBut%2 != 0)
         {
@@ -414,6 +401,7 @@ window.addEventListener('keydown', (event) =>
     } 
     else if (event.code === 'Enter')
     {
+        buttonA.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
         if (screenOff === 0) 
         {
             enterScreen.classList.toggle('changeOpacity')
@@ -442,14 +430,6 @@ window.addEventListener('keydown', (event) =>
             }
         }
     }
-    else if (event.code === 'KeyT')
-    {
-        startDash.style.boxShadow = 'inset 0px 0px 0px 1px #000000'
-    }
-    else if (event.code === 'KeyB')
-    {
-        buttonB.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
-    }
 })
 
 // Effects in the button when we stop 
@@ -476,7 +456,7 @@ window.addEventListener('keyup', (event) =>
     {
         clickLeft.style.background = 'none'
     } 
-    else if (event.code === 'KeyT')
+    else if (event.code === 'Space')
     {
         startDash.style.boxShadow = 'inset 1px 1px 0px 1px #000000' 
     }
@@ -484,7 +464,7 @@ window.addEventListener('keyup', (event) =>
     {
         buttonA.style.boxShadow = 'inset 2px 1px 0px 1px #000000'
     }
-    else if (event.code === 'KeyB')
+    else if (event.code === 'Backspace')
     {
         buttonB.style.boxShadow = 'inset 2px 1px 0px 1px #000000'
     }
