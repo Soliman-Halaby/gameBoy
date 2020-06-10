@@ -179,7 +179,7 @@ buttonA.addEventListener('mousedown', () =>
     {
         enterScreen.classList.toggle('changeOpacity')
         enterText.style.display = 'none'
-        
+        gameBoyOnAudio.play()
         setTimeout(function()
         { 
             enterScreen.style.display = 'none' 
