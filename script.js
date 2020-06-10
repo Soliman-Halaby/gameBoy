@@ -1,18 +1,4 @@
-VANTA.WAVES({
-  el: ".bg",
-  mouseControls: true,
-  touchControls: true,
-  minHeight: 800.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0x8c8566,
-  shininess: 0.00,
-  waveHeight: 10.00,
-  waveSpeed: 0.65,
-  zoom: 0.65
-})
-
+// CSS for chrome to avoid z fighting
 const is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1
 if(is_chrome)
 {
@@ -20,13 +6,56 @@ if(is_chrome)
 }
 
 
-const rotation = document.querySelector('.cube')
+// Get all DOM elements
+const enterScreen = document.querySelector('.enterScreen')
+const containerScreen = document.querySelector('.containerScreen')
+const gridContainer = document.querySelector('.gridContainer')
+const enterText = document.querySelector('.enterText')
+const playerTurnClassA = document.querySelector('.playerTurnA')
+const playerTurnClassB = document.querySelector('.playerTurnB')
+const difEasy = document.querySelector('.difEasy')
+// const difHard = document.querySelector('.difHard')
+const dif1V1 = document.querySelector('.dif1V1')
+const endGame = document.querySelector('.endGame')
+const endGameText = document.querySelector('.endGameText')
+const classWinA = document.querySelector('.classWinA')
+const classWinB = document.querySelector('.classWinB')
+const titleWinA = document.querySelector('.titleWinA')
+const titleWinB = document.querySelector('.titleWinB')
+const clickRight = document.querySelector('.clickRight')
+const clickLeft = document.querySelector('.clickLeft')
+const clickUp = document.querySelector('.clickUp')
+const clickDown = document.querySelector('.clickDown')
+const selectDash = document.querySelector('.dash4')
+const startDash = document.querySelector('.dash5')
+const buttonA = document.querySelector('.buttonA')
+const buttonB = document.querySelector('.buttonB')
+const gameBoyOnAudio = document.querySelector('.gameBoyOn')
+
+// Declaring variables
+let colNumber = 2
+let rowNumber = 2
+let canPlay = 1
+let nbPlay = 0
+let canPlayBut = 1
+let gameStart = 0
+let gameModeSelect = 0
+let restart = 0
+let winner = ''
+let countWinA = 0
+let countWinB = 0
+let playerTurn1v1 = 0
+let screenOff = 0
+let screenOnOff = 0
 let count = 0
 let count2 = 0
 
+
+const rotation = document.querySelector('.cube')
+
+
 window.addEventListener('keydown', (event) =>
 {
-    console.log(count)
     if(event.code === 'KeyW')
     {
         count += 30
@@ -40,45 +69,6 @@ window.addEventListener('keydown', (event) =>
     }
 })
 
-// Get all DOM elements
-const enterScreen = document.querySelector('.enterScreen')
-const containerScreen = document.querySelector('.containerScreen')
-const gridContainer = document.querySelector('.gridContainer')
-const enterText = document.querySelector('.enterText')
-const playerTurnClassA = document.querySelector('.playerTurnA')
-const playerTurnClassB = document.querySelector('.playerTurnB')
-const difEasy = document.querySelector('.difEasy')
-const difMedi = document.querySelector('.difMedi')
-const difHard = document.querySelector('.difHard')
-const endGame = document.querySelector('.endGame')
-const endGameText = document.querySelector('.endGameText')
-const drawText = document.querySelector('.drawText')
-const classWinA = document.querySelector('.classWinA')
-const classWinB = document.querySelector('.classWinB')
-const titleWinA = document.querySelector('.titleWinA')
-const titleWinB = document.querySelector('.titleWinB')
-const clickRight = document.querySelector('.clickRight')
-const clickLeft = document.querySelector('.clickLeft')
-const clickUp = document.querySelector('.clickUp')
-const clickDown = document.querySelector('.clickDown')
-const selectDash = document.querySelector('.dash4')
-const startDash = document.querySelector('.dash5')
-const buttonA = document.querySelector('.buttonA')
-const buttonB = document.querySelector('.buttonB')
-
-// Declaring variables
-let colNumber = 2
-let rowNumber = 2
-let canPlay = 1
-let nbPlay = 0
-let canPlayBut = 1
-let gameStart = 0
-let gameModeSelect = 2
-let restart = 0
-let winner = ''
-let countWinA = 0
-let countWinB = 0
-let playerTurn1v1 = 0
 
 playerATurn()
 gameMode()
@@ -150,25 +140,33 @@ clickLeft.addEventListener('mouseup', () =>
 buttonA.addEventListener('mousedown', () =>
 {
     buttonA.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
-    if (restart === 0) 
+    if (screenOff === 0) 
     {
-        verifBox()
+        enterScreen.classList.toggle('changeOpacity')
+        enterText.style.display = 'none'; 
+        
+        setTimeout(function()
+        { 
+            enterScreen.style.display = 'none'; 
+            gridContainer.style.display = 'flex'; 
+            screenOff = 1
+        }, 3000);
     } 
     else 
-    {        //if the game is finished, enter closes the message and restarts the game
-        endGame.style.display = 'none'
-        restart = 0
-        resetGrid()
-        canPlay = 1
+    {
+        buttonA.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
+        if (restart === 0) 
+        {
+            verifBox()
+        } 
+        else 
+        {        //if the game is finished, enter closes the message and restarts the game
+            endGame.style.display = 'none'
+            restart = 0
+            resetGrid()
+            canPlay = 1
+        }
     }
-    enterScreen.classList.toggle('changeOpacity');
-    enterText.style.display = 'none'; 
-    
-    setTimeout(function()
-    { 
-        enterScreen.style.display = 'none'; 
-        gridContainer.style.display = 'flex'; 
-    }, 3000);
 })
 
 buttonA.addEventListener('mouseup', () =>
@@ -179,6 +177,15 @@ buttonA.addEventListener('mouseup', () =>
 buttonB.addEventListener('mousedown', () =>
 {
     buttonB.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
+    canPlayBut++
+    if(canPlayBut%2 != 0)
+    {
+        playerATurn()
+    } 
+    else 
+    {
+        computerTurn()
+    }
 })
 
 buttonB.addEventListener('mouseup', () =>
@@ -202,6 +209,33 @@ selectDash.addEventListener('mouseup', () =>
 startDash.addEventListener('mousedown', () =>
 {
     startDash.style.boxShadow = 'inset 0px 0px 0px 1px #000000'
+    {
+        screenOnOff++
+        screenOff = 0
+        countWinA = 0
+        countWinB = 0
+        classWinA.textContent = '0'
+        classWinB.textContent = '0'
+        if(screenOnOff%2 != 0)
+        {
+            enterText.style.display = 'none'
+            enterScreen.style.display = 'none'
+            containerScreen.style.background = '#262527'
+            containerScreen.style.boxShadow = 'none'
+            gridContainer.style.display = 'none'; 
+            enterScreen.classList.remove('changeOpacity');
+            resetGrid()
+        }
+        else if(screenOnOff%2 == 0)
+        {
+            // gridContainer.style.display = 'flex'; 
+            enterScreen.classList.remove('changeOpacity');
+            enterText.style.display = 'flex'
+            enterScreen.style.display = 'block'
+            containerScreen.style.background = 'linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%)'
+            containerScreen.style.boxShadow = 'inset 6px 0px 13px #adb7be, inset -6px 0px 13px #c1cbd3'
+        }
+    }
 })
 
 startDash.addEventListener('mouseup', () =>
@@ -232,38 +266,36 @@ function gameMode()
         titleWinA.textContent = 'Win'
         titleWinB.textContent = 'Lose'
         gameModeSelect++
-        difHard.style.opacity = '30%'; 
+        dif1V1.style.opacity = '30%'; 
         difEasy.style.opacity = '100%';
         resetGrid()
         countWinA = 0
         countWinB = 0
         classWinA.textContent = '0'
         classWinB.textContent = '0'
+        endGameText.textContent = ''
     } 
-    else if (gameModeSelect === 1)
+    else if (gameModeSelect === 1) 
     {
-        gameModeSelect++
+        gameModeSelect = 0
         difEasy.style.opacity = '30%'; 
-        difMedi.style.opacity = '100%';
-        resetGrid()
-        countWinA = 0
-        countWinB = 0
-        classWinA.textContent = '0'
-        classWinB.textContent = '0'
-    } 
-    else if (gameModeSelect === 2)
-    {
+        dif1V1.style.opacity = '100%';
         titleWinA.textContent = 'A'
         titleWinB.textContent = 'B'
-        gameModeSelect = 0
-        difMedi.style.opacity = '30%' 
-        difHard.style.opacity = '100%'
         resetGrid()
         countWinA = 0
         countWinB = 0
         classWinA.textContent = '0'
         classWinB.textContent = '0'
-    }
+        endGameText.textContent = ''
+    } 
+    // else if (gameModeSelect === 2)
+    // {
+    //     gameModeSelect = 0
+    //     dif1V1.style.opacity = '30%' 
+    //     difHard.style.opacity = '100%'
+    //     resetGrid()
+    // }
 }
 
 // Start the game
@@ -284,27 +316,36 @@ window.addEventListener('keydown', (event) =>
 
 // Switch on off GameBoy
 
-let screenOnOff = 0
 
 window.addEventListener('keydown', (event) =>
 {
-    screenOnOff++
-    if(screenOnOff%2 != 0)
+    if(event.code === 'Space')
     {
-        if(event.code === 'KeyN')
+        screenOnOff++
+        screenOff = 0
+        countWinA = 0
+        countWinB = 0
+        classWinA.textContent = '0'
+        classWinB.textContent = '0'
+        if(screenOnOff%2 != 0)
         {
             enterText.style.display = 'none'
             enterScreen.style.display = 'none'
-            containerScreen.style.background = 'red'
+            containerScreen.style.background = '#262527'
             containerScreen.style.boxShadow = 'none'
+            gridContainer.style.display = 'none'; 
+            enterScreen.classList.remove('changeOpacity');
+            resetGrid()
         }
-    }
-    else if(screenOnOff%2 == 0)
-    {
-        enterText.style.display = 'flex'
-        enterScreen.style.display = 'flex'
-        containerScreen.style.background = 'linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%)'
-        containerScreen.style.boxShadow = 'inset 6px 0px 13px #adb7be, inset -6px 0px 13px #c1cbd3'
+        else if(screenOnOff%2 == 0)
+        {
+            // gridContainer.style.display = 'flex'; 
+            enterScreen.classList.remove('changeOpacity');
+            enterText.style.display = 'flex'
+            enterScreen.style.display = 'block'
+            containerScreen.style.background = 'linear-gradient(225deg, #e6f4fd 0%, #d5cccd 100%)'
+            containerScreen.style.boxShadow = 'inset 6px 0px 13px #adb7be, inset -6px 0px 13px #c1cbd3'
+        }
     }
 })
 
@@ -321,12 +362,10 @@ window.addEventListener('keydown', (event) =>
         if(canPlayBut%2 != 0)
         {
             playerATurn()
-            console.log('player')
         } 
         else 
         {
             computerTurn()
-            console.log('computer');
         }
     } 
     else if (event.code === 'ArrowDown' && canPlay === 1) 
@@ -371,17 +410,33 @@ window.addEventListener('keydown', (event) =>
     } 
     else if (event.code === 'Enter')
     {
-        buttonA.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
-        if (restart === 0) 
+        console.log(screenOff);
+        if (screenOff === 0) 
         {
-            verifBox()
+            enterScreen.classList.toggle('changeOpacity')
+            enterText.style.display = 'none'; 
+            gameBoyOnAudio.play()
+            setTimeout(function()
+            { 
+                enterScreen.style.display = 'none'; 
+                gridContainer.style.display = 'flex'; 
+                screenOff = 1
+            }, 3000);
         } 
         else 
-        {        //if the game is finished, enter closes the message and restarts the game
-            endGame.style.display = 'none'
-            restart = 0
-            resetGrid()
-            canPlay = 1
+        {
+            buttonA.style.boxShadow = 'inset 0px 1px 0px 1px #000000'
+            if (restart === 0) 
+            {
+                verifBox()
+            } 
+            else 
+            {        //if the game is finished, enter closes the message and restarts the game
+                endGame.style.display = 'none'
+                restart = 0
+                resetGrid()
+                canPlay = 1
+            }
         }
     }
     else if (event.code === 'KeyT')
@@ -434,7 +489,7 @@ window.addEventListener('keyup', (event) =>
 // erase the background color of the box if the player changes boxes
 function unselectBox()
 {
-    const boxClass = '.col' + colNumber + 'row' + rowNumber
+    const boxClass = `.col${colNumber}row${rowNumber}`
     const boxSelectorMem = document.querySelector(boxClass)
     boxSelectorMem.style.background = '#4c4d9f00'; 
 }
@@ -442,7 +497,7 @@ function unselectBox()
 // add background color of the box if the player select it
 function selectBox()
 {
-    const boxClass = '.col' + colNumber + 'row' + rowNumber
+    const boxClass = `.col${colNumber}row${rowNumber}`
     const boxSelector = document.querySelector(boxClass)
     boxSelector.style.background = '#4c4d9f4D'; 
 }
@@ -451,7 +506,7 @@ function selectBox()
 function verifBox()
 {
     console.log(nbPlay)
-    const boxClass = '.col' + colNumber + 'row' + rowNumber
+    const boxClass = `.col${colNumber}row${rowNumber}`
     const boxState = boxArray.find(search => search.class == boxClass ).state
     const boxSelector = document.querySelector(boxClass)
     // if the box is equal to 0 then it is free
@@ -638,7 +693,8 @@ function winCheck()
         if (winCheckList[2] === '1') 
         {
             winner = 'A'
-        } else 
+        } 
+        else 
         {
             winner = 'B'
         }
@@ -648,7 +704,8 @@ function winCheck()
     {
         console.log('draw')
         endGame.style.display = 'flex'
-        drawText.textContent = 'Draw'
+        endGameText.textContent = 'Draw'
+        restart = 1
     }
 }
 
@@ -658,10 +715,12 @@ function winFunct()
     {
         if (gameModeSelect === 0) 
         {
-            endGameText.textContent = 'PA Win'
-        } else 
+            endGameText.textContent = 'A Win'
+        } 
+        else 
         {
             endGameText.textContent = 'Win'
+            
         }
         countWinA++
         classWinA.textContent = countWinA
@@ -670,7 +729,7 @@ function winFunct()
     {
         if (gameModeSelect === 0) 
         {
-            endGameText.textContent = 'PB Win'
+            endGameText.textContent = 'B Win'
         } 
         else 
         {
@@ -700,7 +759,7 @@ function resetGrid()
     nbPlay = 0
 }
 
-function hardMode()
-{
-    console.log('hard');
-}
+// function hardMode()
+// {
+//     console.log('hard');
+// }

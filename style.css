@@ -5,19 +5,14 @@ body
 {
   overflow: hidden;
   margin: 0;
-  background: #7f673d;
+  background: #e2e7ff;
   user-select: none;
-}
-
-.bg
-{
-  margin: 0;
 }
 
 .rules
 {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(2, 1fr);
   text-align: center;
   margin: 20px;
@@ -40,7 +35,7 @@ body
   position: absolute;
   left: 0;
   right: 0;
-  top: 350px;
+  top: 0px;
   bottom: 0;
   margin: auto;
   perspective: 1200px;
@@ -196,9 +191,9 @@ SCREEN IN THE GAMEBOY
 .enterScreen.changeOpacity .logo
 {
   opacity: 0;
+  /* background : #262527 */
   transition: all 3s;
 }
-
 
 
 .enterScreen
@@ -342,17 +337,17 @@ SCREEN IN THE GAMEBOY
   margin: 0;
 }
 
-.dificultyContainer .difHard
+.dificultyContainer .dif1V1
 {
   width: 100%;
   height: 6px;
 }
 
-.difHard{
+.dif1V1{
   opacity: 30%;
 }
 
-.difMedi{
+.difHard{
   opacity: 30%;
 }
 
@@ -390,7 +385,15 @@ SCREEN IN THE GAMEBOY
   z-index: 10;
 }
 
-.endGame .endGameText .drawText
+.endGame .endGameText
+{
+  display: flex;
+  align-items: center;
+  height: 33%;
+  font-size: 20px;
+}
+
+.drawText
 {
   display: flex;
   align-items: center;
@@ -933,4 +936,16 @@ BIG BUTTONS ON Y POS
   transform: rotateX(-90deg);
   top: 0px;
   left: 30px;
+}
+
+/********
+
+FOOTER
+
+********/
+
+.footer
+{
+  display: flex;
+  justify-content: center;
 }
