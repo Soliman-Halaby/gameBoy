@@ -35,12 +35,10 @@
 
 .dash4
 {
-    transform: translateZ(5px);
-    z-index: 10000
+    transform: translateZ(6px);
 }
 
 .dash5
 {
-    transform: translateZ(5px);
-    z-index: 10000
+    transform: translateZ(6px);
 }
