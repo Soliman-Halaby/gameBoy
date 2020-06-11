@@ -1,6 +1,6 @@
 # **3D GameBoy**
 
-This 3D GameBoy is created with `CSS` and `JavaScript`.
+This 3D GameBoy is created with `CSS` and `Vanilla JavaScript`.
 
 ## **GameBoy Game**
 
