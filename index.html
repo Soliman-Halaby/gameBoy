@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D GameBoy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/images/gameBoyIcon.png">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/chrome.css" type="text/chrome/safari">
+</head>
+<body>
+    <div class="rules">
+        <span>A / Enter</span>
+        <span>B / Backspace </span>
+        <span>Select / Right Shift</span>
+        <span>Start / Space</span>
+        <span>Arrows / Keyboard Arrows</span>
+        <span>Z - S </span>
+        <span class="action">Validate Choice</span>
+        <span class="action">Change first player</span>
+        <span class="action">Change game mode</span>
+        <span class="action">On / Off GameBoy</span>
+        <span class="action">Navigate on the screen</span>
+        <span class="action">Rotate the GameBoy</span>
+    </div>
+    <div class="container">
+        <div class="cube">
+            <div class="face z-neg">
+            </div>
+            <div class="face z-pos">
+                <div class="containerScreen"> 
+                    <div class="enterScreen">
+                        <div class="absolute logoGameBoy">
+                            <img class="logo" src="./assets/images/Gameboy_logo_blue.svg" alt="">
+                        </div>
+                        <div class="absolute enterText">
+                            <h3 class="textEnter">Press A to Start</h3>
+                        </div>
+                    </div>
+                    <div class="gridContainer">
+                        <div class="absolute dificultyContainer">
+                            <!-- <div class="difHard">
+                                <h3 class="difficulty">HARD</h3>
+                            </div> -->
+                            <div class="dif1V1">
+                                <h3 class="difficulty">1V1</h3>
+                            </div>
+                            <div class="difEasy">
+                                <h3 class="difficulty">EASY</h3>
+                            </div>
+                        </div>
+                        <div class="endGame">
+                            <p class="endGameText"></p>
+                            <!-- <p class="drawText"></p> -->
+                            <h3 class="endGameRestart">Press A to Restart</h3>
+                        </div>
+                        <div class="absolute gameGrid">
+                            <div class="gameBox">
+                                <p class="col1row1 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col2row1 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col3row1 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col1row2 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col2row2 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col3row2 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col1row3 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col2row3 boxParagraph"></p>
+                            </div>
+                            <div class="gameBox">
+                                <p class="col3row3 boxParagraph"></p>
+                            </div>
+                        </div>
+                        <div class="absolute countContainer">
+                            <div class="countWin">
+                                <h3 class="display titleWinA">WIN</h3>
+                                <h4 class="number classWinA">0</h4>
+                            </div>
+                            <div>
+                                <h3 class="player">Player</h3>
+                                <div class="playerTurnAB">
+                                    <h3 class="playerTurnA">A</h3>
+                                    <h3 class="playerTurnB">B</h3>
+                                </div>
+                            </div>
+                            <div class="countLose">
+                                <h3 class="display titleWinB">LOSE</h3>
+                                <h4 class="number classWinB">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faceTop"></div>
+                <div class="faceBottom"></div>
+                <div class="crossContainer">
+                    <div class="horizontalCross"></div>
+                    <div class="verticalCross"></div>
+                    <div class="coverHorCross">
+                        <div class="clickLeft">
+                            <div class="whiteDashLeft"></div>
+                        </div>
+                        <div class="clickRight">
+                            <div class="whiteDashRight"></div>
+                        </div>
+                    </div>
+                    <div class="coverVerCross">
+                        <div class="clickUp">
+                            <div class="whiteDashUp"></div>
+                        </div>
+                        <div class="clickDown">
+                            <div class="whiteDashDown"></div>
+                        </div>
+                    </div>
+                    <div class="crosses leftCross"></div>
+                    <div class="crosses rightCross"></div>
+                    <div class="crosses bottomCross"></div>
+                    <div class="crosses topCross"></div>
+                    <div class="crosses leftBottom"></div>
+                    <div class="crosses leftTop"></div>
+                    <div class="crosses bottomLeft"></div>
+                    <div class="crosses bottomRight"></div>
+                </div>
+                <div class="firstLine"></div>
+                <div class="secondLine"></div>
+                <div class="dash dash1"></div>
+                <div class="dash dash2"></div>
+                <div class="dash dash3"></div>
+                <div class="optionButton">
+                    <div class="select">
+                        <img class="selectImg" src="./assets/images/select.svg">
+                    </div>
+                    <div class="start">
+                        <img class="startImg" src="./assets/images/start.svg">
+                    </div>
+                    <div class="dash dash4"></div>
+                    <div class="dash dash5"></div>
+                </div>
+                <div class="gameButtons">
+                    <div class="button buttonA">a</div>
+                    <div class="button buttonB">b</div>
+                </div>
+            </div>
+            <div class="face x-neg">
+                <div class="topButtons leftrButtonNegBottom"></div>
+            </div>
+            <div class="face x-pos">
+                <div class="topButtons rightrButtonNegBottom"></div>
+            </div>
+            <div class="face y-neg">
+            </div>
+            <div class="face y-pos">
+                <div class="bigButtons">
+                    <div class="topButtons leftrButtonBase"></div>
+                    <div class="topButtons leftrButtonLeft"></div>
+                    <div class="topButtons leftrButtonRight"></div>
+                    <div class="topButtons leftrButtonTop"></div>
+                    <div class="topButtons leftrButtonFace"></div>
+                    <div class="topButtons leftrButtonWall"></div>
+                    <div class="topButtons rightrButtonBase"></div>
+                    <div class="topButtons rightrButtonLeft"></div>
+                    <div class="topButtons rightrButtonRight"></div>
+                    <div class="topButtons rightrButtonTop"></div>
+                    <div class="topButtons rightrButtonFace"></div>
+                    <div class="topButtons rightrButtonWall"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio class="gameBoyOn" src="./assets/audios/gameBoyOn.mp3"></audio>
+    <script src="./scripts/boxArray.js"></script>
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
